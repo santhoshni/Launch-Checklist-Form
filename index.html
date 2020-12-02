@@ -1,15 +1,64 @@
-<!DOCTYPE>
+	<!DOCTYPE>
 <html>
     <head>
         <title>Launch Checklist</title>
         <link rel = "stylesheet" type = "text/css" href = "styles.css" />
         <script src = "script.js"></script>
     </head>
+   <script>
+         window.addEventListener("load", function() {
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+               response.json().then( function(json) {
+                  const div = document.getElementById("missionTarget");
+                  // Add HTML that includes the JSON data
+                  div.innerHTML = `
+					 <h2 id="missionDest">Mission Destination</h2>
+                     <ol start="1">
+                        <li>Name ${json[4].name}</li>
+                        <li>Diameter ${json[4].diameter}</li>
+                        <li>Star ${json[4].star}</li>
+                        <li>Distance  from earth ${json[4].distance}</li>
+						<li>moons ${json[4].moons}</li>
+						
+                     </ol>
+					 <img src=${json[4].image} height=250></img>
+                  `;
+               });
+            });
+         });
+		 </script> 
+		 <script>
+		 window.addEventListener("load", function() {
+		 
+		 //const div = document.getElementById("missionTarget");
+		  let form = document.querySelector("form");
+			form.addEventListener("submit", function(event) {
+				 let fuelValue = document.querySelector("input[name=fuelLevel]");
+				 console.log("fuelValue  ====>>> "+fuelValue);
+				 const div = document.getElementById("launchStatusCheck");
+				 if(Number(fuelValue) <= 890)
+				 {
+				 
+				 div.innerHTML = `
+						 <h2 id="missionDest">Shuttle Not Ready for Launch</h2>
+						 <ol start="1">
+							<li>Pilot document.querySelector("input[name=pilotName]") is ready for launch</li>
+
+						 </ol>
+					`;
+				}
+            });
+		});
+      </script>
     <body>
         <h1>Launch Checklist Form</h1>
+
         <div id="missionTarget">
             <!-- Fetch some planetary data -->
+				
+				
         </div> 
+		
         <div id="launchForm">
             <form>
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
@@ -25,8 +74,27 @@
                     <label>Cargo Mass (kg) <input type="text" name="cargoMass"/></label>
                 </div>
                 <button id="formSubmit">Submit</button>
+				<!-- <script>
+					  let button = document.getElementById("formSubmit");
+					  // add event handler for when button clicked
+					  button.addEventListener("click", function() {
+						  let inputPilot = document.getElementById("fuelLevel");
+						  console.log(inputPilot.value);
+						  // now update the value in the input
+						  inputPilot.value = inputPilot.value + " rocks!";
+						  console.log(inputPilot.value);
+						  if (isNaN(inputPilot.value)) {
+							alert("All fields are required!");
+						 }
+					  });
+				  </script> -->
             </form>
         </div>
+		<div id="shuttleNotReady">
+            <!-- Fetch some planetary data -->
+				
+				
+        </div> 
         <div id="launchStatusCheck">
             <h2 id="launchStatus">Awaiting Information Before Launch</h2>
             <div  id="faultyItems">
