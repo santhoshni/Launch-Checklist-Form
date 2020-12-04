@@ -5,48 +5,74 @@
         <link rel = "stylesheet" type = "text/css" href = "styles.css" />
         <script src = "script.js"></script>
     </head>
-   <script>
-         window.addEventListener("load", function() {
-            fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
-               response.json().then( function(json) {
-                  const div = document.getElementById("missionTarget");
-                  // Add HTML that includes the JSON data
-                  div.innerHTML = `
-					 <h2 id="missionDest">Mission Destination</h2>
-                     <ol start="1">
-                        <li>Name ${json[4].name}</li>
-                        <li>Diameter ${json[4].diameter}</li>
-                        <li>Star ${json[4].star}</li>
-                        <li>Distance  from earth ${json[4].distance}</li>
-						<li>moons ${json[4].moons}</li>
-						
-                     </ol>
-					 <img src=${json[4].image} height=250></img>
-                  `;
-               });
+    <script>
+        window.addEventListener("load", function() {
+        fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+            response.json().then( function(json) {
+                const div = document.getElementById("missionTarget");
+                // Add HTML that includes the JSON data
+                div.innerHTML = `
+                    <h2 id="missionDest">Mission Destination</h2>
+                    <ol start="1">
+                    <li>Name ${json[4].name}</li>
+                    <li>Diameter ${json[4].diameter}</li>
+                    <li>Star ${json[4].star}</li>
+                    <li>Distance  from earth ${json[4].distance}</li>
+                    <li>moons ${json[4].moons}</li>
+                    
+                    </ol>
+                    <img src=${json[4].image} height=250></img>
+                `;
             });
-         });
-		 </script> 
+        });
+        });
+    </script> 
 		 <script>
 		 window.addEventListener("load", function() {
 		 
-		 //const div = document.getElementById("missionTarget");
 		  let form = document.querySelector("form");
 			form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                //alert("< === SanthoshniValidation === > ");
+                 let pilotName = document.querySelector("input[name=pilotName]");
+                 let copilotName = document.querySelector("input[name=copilotName]");
 				 let fuelValue = document.querySelector("input[name=fuelLevel]");
-				 console.log("fuelValue  ====>>> "+fuelValue);
-				 const div = document.getElementById("launchStatusCheck");
-				 if(Number(fuelValue) <= 890)
-				 {
-				 
-				 div.innerHTML = `
-						 <h2 id="missionDest">Shuttle Not Ready for Launch</h2>
-						 <ol start="1">
-							<li>Pilot document.querySelector("input[name=pilotName]") is ready for launch</li>
+                 let cargoMass = document.querySelector("input[name=cargoMass]");
+                 
+                 if (pilotName.value === "" || copilotName.value === "" || fuelValue.value == 0 ||  cargoMass.value == 0) {
+				    alert("All fields are required!");
+                 } 
+                 if (!isNaN(pilotName.value) || !isNaN(copilotName.value) || isNaN(fuelValue.value)||isNaN(cargoMass.value)) {
+                                       
+				    alert("Make sure to enter valid information for each field");
 
-						 </ol>
-					`;
-				}
+                 }
+                 else {
+                    const div = document.getElementById("launchStatusCheck");
+                    //const div = document.getElementById("shuttleNotReady");
+                    
+                    if(Number(fuelValue.value) <= 890)
+                    {
+                    
+                    div.innerHTML = `
+                            <h2 id="missionDest" style="color:red" >Shuttle Not Ready for Launch</h2>
+                            <ol start="1">
+                                <li>Pilot ${pilotName.value} is ready for launch</li>
+                                <li>Co-Pilot ${copilotName.value} is ready for launch</li>
+                                <li>Fuel Level too low for launch</li>
+                                <li>Cargo mass low enough for launch</li>
+
+                            </ol>
+                        `;
+                    } else {
+                        alert("Testing")
+                        document.getElementById("launchStatus").style.color = "green";
+                        let div = document.getElementById('faultyItems');
+                        div.style.visibility = 'visible';
+                    }
+                    
+                }
             });
 		});
       </script>
@@ -73,21 +99,7 @@
                 <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; margin: 8 0;">
                     <label>Cargo Mass (kg) <input type="text" name="cargoMass"/></label>
                 </div>
-                <button id="formSubmit">Submit</button>
-				<!-- <script>
-					  let button = document.getElementById("formSubmit");
-					  // add event handler for when button clicked
-					  button.addEventListener("click", function() {
-						  let inputPilot = document.getElementById("fuelLevel");
-						  console.log(inputPilot.value);
-						  // now update the value in the input
-						  inputPilot.value = inputPilot.value + " rocks!";
-						  console.log(inputPilot.value);
-						  if (isNaN(inputPilot.value)) {
-							alert("All fields are required!");
-						 }
-					  });
-				  </script> -->
+                <button id="submit">submit</button>
             </form>
         </div>
 		<div id="shuttleNotReady">
