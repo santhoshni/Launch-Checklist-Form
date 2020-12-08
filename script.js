@@ -64,18 +64,34 @@ window.addEventListener("load", function() {
                 //alert("Testing")
 
                 alert("wrong")
+                
                 document.getElementById("launchStatus").style.color = "red";
                 let div = document.getElementById('faultyItems');
+                document.getElementById("launchStatus").innerHTML = "Shuttle Not Ready for Launch";
                 document.getElementById("pilotStatus").innerHTML = "Pilot "+pilotName.value + " is ready for launch";
                 document.getElementById("copilotStatus").innerHTML ="Co-Pilot "+ copilotName.value + " is ready for launch";
-                document.getElementById("fuelStatus").innerHTML = "Fuel Level too low for launch";
-                document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+                if (Number(fuelValue.value) <= 10000){
+                    document.getElementById("fuelStatus").innerHTML = "Fuel Level too low for launch";
+                
+                }else{
+                    document.getElementById("fuelStatus").innerHTML = "Fuel Level is good for launch";
+                }
+                if( Number(cargoMass.value) >= 10000){
+                    document.getElementById("cargoStatus").innerHTML = "Cargo mass is high for launch";
+                }else{
+                    document.getElementById("cargoStatus").innerHTML = "Cargo mass is good enough for launch";   
+                }
                 div.style.visibility = 'visible';
             } else {
                 
                 alert("right")
                 document.getElementById("launchStatus").style.color = "green";
                 let div = document.getElementById('faultyItems');
+                document.getElementById("launchStatus").innerHTML = "Shuttle is Ready for Launch";
+                document.getElementById("pilotStatus").innerHTML = "Pilot "+pilotName.value + " is ready for launch";
+                document.getElementById("copilotStatus").innerHTML ="Co-Pilot "+ copilotName.value + " is ready for launch";
+                document.getElementById("fuelStatus").innerHTML = "Fuel Level is good for launch";
+                document.getElementById("cargoStatus").innerHTML = "Cargo mass is good enough for launch";
                 div.style.visibility = 'visible';
             }
 
