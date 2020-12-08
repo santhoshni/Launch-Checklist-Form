@@ -32,7 +32,7 @@ window.addEventListener("load", function() {
          let fuelValue = document.querySelector("input[name=fuelLevel]");
          let cargoMass = document.querySelector("input[name=cargoMass]");
 
-         if (pilotName.value === "" && copilotName.value === "" && fuelValue.value == 0 &&  cargoMass.value == 0) {
+         if (pilotName.value === "" || copilotName.value === "" || fuelValue.value == 0 ||  cargoMass.value == 0) {
             alert("All fields are required!");
             return false;
          }
