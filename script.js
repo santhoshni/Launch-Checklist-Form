@@ -27,18 +27,19 @@ window.addEventListener("load", function() {
     form.addEventListener("submit", function(event) {
         event.preventDefault();
 
-        //alert("< === SanthoshniValidation === > ");
          let pilotName = document.querySelector("input[name=pilotName]");
          let copilotName = document.querySelector("input[name=copilotName]");
          let fuelValue = document.querySelector("input[name=fuelLevel]");
          let cargoMass = document.querySelector("input[name=cargoMass]");
 
-         if (pilotName.value === "" || copilotName.value === "" || fuelValue.value == 0 ||  cargoMass.value == 0) {
+         if (pilotName.value === "" && copilotName.value === "" && fuelValue.value == 0 &&  cargoMass.value == 0) {
             alert("All fields are required!");
+            return false;
          }
-         if (!isNaN(pilotName.value) || !isNaN(copilotName.value) || isNaN(fuelValue.value)||isNaN(cargoMass.value)) {
+         else if (!isNaN(pilotName.value) || !isNaN(copilotName.value) || isNaN(fuelValue.value)||isNaN(cargoMass.value)) {
 
             alert("Make sure to enter valid information for each field");
+            return false;
 
          }
          else {
@@ -61,10 +62,7 @@ window.addEventListener("load", function() {
             } else*/
 
              if (Number(fuelValue.value) <= 10000 || Number(cargoMass.value) >= 10000){
-                //alert("Testing")
-
-                alert("wrong")
-                
+                                
                 document.getElementById("launchStatus").style.color = "red";
                 let div = document.getElementById('faultyItems');
                 document.getElementById("launchStatus").innerHTML = "Shuttle Not Ready for Launch";
@@ -84,14 +82,13 @@ window.addEventListener("load", function() {
                 div.style.visibility = 'visible';
             } else {
                 
-                alert("right")
                 document.getElementById("launchStatus").style.color = "green";
                 let div = document.getElementById('faultyItems');
                 document.getElementById("launchStatus").innerHTML = "Shuttle is Ready for Launch";
                 document.getElementById("pilotStatus").innerHTML = "Pilot "+pilotName.value + " is ready for launch";
                 document.getElementById("copilotStatus").innerHTML ="Co-Pilot "+ copilotName.value + " is ready for launch";
                 document.getElementById("fuelStatus").innerHTML = "Fuel Level is good for launch";
-                document.getElementById("cargoStatus").innerHTML = "Cargo mass is good enough for launch";
+                document.getElementById("cargoStatus").innerHTML = "Cargo mass is good enough for launch"; 
                 div.style.visibility = 'visible';
             }
 
