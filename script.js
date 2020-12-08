@@ -45,7 +45,7 @@ window.addEventListener("load", function() {
             const div = document.getElementById("launchStatusCheck");
             //const div = document.getElementById("shuttleNotReady");
 
-            if(Number(fuelValue.value) <= 890)
+           /* if(Number(fuelValue.value) <= 890)
             {
 
             div.innerHTML = `
@@ -56,10 +56,24 @@ window.addEventListener("load", function() {
                         <li>Fuel Level too low for launch</li>
                         <li>Cargo mass low enough for launch</li>
 
-                    </ol>
+                    </ol>`
                 `;
-            } else {
+            } else*/
+
+             if (Number(fuelValue.value) <= 10000 || Number(cargoMass.value) >= 10000){
                 //alert("Testing")
+
+                alert("wrong")
+                document.getElementById("launchStatus").style.color = "red";
+                let div = document.getElementById('faultyItems');
+                document.getElementById("pilotStatus").innerHTML = "Pilot "+pilotName.value + " is ready for launch";
+                document.getElementById("copilotStatus").innerHTML ="Co-Pilot "+ copilotName.value + " is ready for launch";
+                document.getElementById("fuelStatus").innerHTML = "Fuel Level too low for launch";
+                document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+                div.style.visibility = 'visible';
+            } else {
+                
+                alert("right")
                 document.getElementById("launchStatus").style.color = "green";
                 let div = document.getElementById('faultyItems');
                 div.style.visibility = 'visible';
